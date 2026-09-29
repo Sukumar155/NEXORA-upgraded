@@ -1,0 +1,383 @@
+/* =============================================================================
+   NEXORA ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Design Tokens
+   -----------------------------------------------------------------------------
+   Identity: "Monsoon Resilience". A calm, editorial light system built for
+   high-stakes operational software. One accent (Deep Cobalt), a warm-neutral
+   canvas, near-black ink, and a restrained semantic severity ramp.
+
+   Rules of the system
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ One accent colour. Everything else is neutral or semantic.
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Warm-neutral canvas (#F8F8F7) ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â never pure white as the page colour.
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Text is near-black charcoal, not navy.
+     ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ Severity colours are desaturated so they read as instrumentation,
+       not as decoration.
+   ========================================================================== */
+
+@theme {
+  /* ===== Brand ===== */
+  --color-cobalt: #1A3A6B;        /* primary accent ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Deep Cobalt */
+  --color-cobalt-deep: #12294D;
+  --color-cobalt-ink: #0F2140;
+  --color-cobalt-muted: #5B7BA8;
+  --color-cobalt-tint: #EEF2F8;   /* subtle filled surface */
+  --color-cobalt-line: #C3D0E4;   /* subtle border */
+
+  /* ===== Neutrals (warm) ===== */
+  --color-canvas: #F8F8F7;
+  --color-ink: #14151A;
+  --color-graphite: #2E3038;
+
+  /* ===== Typeface bindings (drive Tailwind's font-sans / font-mono) =====
+     Inter for all product UI. JetBrains Mono strictly for telemetry,
+     identifiers and coordinates ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â the two families never mix in a heading. */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  /* ===== Semantic severity (desaturated, instrument-like) ===== */
+  --color-critical: #B42318;
+  --color-severe: #B54708;
+  --color-warning: #A15C07;
+  --color-success: #126B34;
+  --color-info: #2C5C93;
+
+  /* Legacy aliases retained for compatibility with existing utilities. */
+  --color-midnight-navy: #1A3A6B;
+  --color-deep-navy: #12294D;
+  --color-blue: #2C5C93;
+  --color-cyan: #2E5F94;
+  --color-light-blue: #EEF2F8;
+  --color-paper: #F8F8F7;
+  --color-accent: #1A3A6B;
+  --color-orange: #B54708;
+  --color-cool-grey: #F1F1EF;
+  --color-high: #B54708;
+  --color-moderate: #A15C07;
+  --color-safe: #126B34;
+  --color-advisory: #2C5C93;
+}
+
+:root,
+[data-theme="light"] {
+  /* ---------- Surfaces ---------- */
+  --nx-canvas: #F8F8F7;            /* page background ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â warm off-white */
+  --color-bg: #F8F8F7;
+  --color-background: #F8F8F7;
+
+  --nx-surface: #FFFFFF;           /* cards, panels, sheets */
+  --color-surface: #FFFFFF;
+  --color-surface-white: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-card-hover: #FFFFFF;
+
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-sunken: #F1F1EF; /* wells, table stripes, inset panels */
+  --color-surface-subtle: #F8F8F7; /* barely-there raised neutral */
+
+  /* ---------- Borders ---------- */
+  --nx-line: #E4E4E0;              /* default hairline */
+  --color-border: #E4E4E0;
+  --color-border-subtle: #E4E4E0;
+  --nx-line-strong: #D4D4CE;       /* inputs, emphasised dividers */
+  --nx-line-soft: #F1F1EF;         /* internal separators */
+
+  /* ---------- Text ---------- */
+  --color-text-primary: #14151A;   /* near-black charcoal */
+  --color-text-secondary: #5A5C66;
+  --color-text-muted: #5A5C66;
+  --color-text-faint: #A1A3AC;
+  --color-text-inverse: #FFFFFF;
+
+  /* ---------- Brand ---------- */
+  --color-primary: #1A3A6B;        /* Deep Cobalt */
+  --color-primary-hover: #142C52;
+  --color-primary-active: #12294D;
+  --color-primary-soft: #EEF2F8;   /* tinted fill */
+  --color-primary-soft-hover: #E3EAF4;
+  --color-primary-border: #C3D0E4;
+  --color-primary-text: #1A3A6B;   /* accent-coloured text on light */
+
+  --color-secondary: #1A3A6B;      /* informational steel blue */
+  --color-cyan: #1A3A6B;
+  --color-info: #1A3A6B;
+  --color-brown: #7A3E0B;
+  --color-midnight: #1A3A6B;
+  --color-primary-blue: #1A3A6B;
+  --color-dark-blue: #1A3A6B;
+  --color-card-selected: #EEF2F8;
+  --color-deep-navy: #12294D;
+  --color-midnight-navy: #1A3A6B;
+
+  /* ---------- Severity ---------- */
+  --color-critical: #B42318;
+  --color-critical-soft: #FCF1F0;
+  --color-critical-border: #F3CFC9;
+  --color-severe: #A15C07;
+  --color-severe-soft: #FAF0D8;
+  --color-severe-border: #EFE3C4;
+  --color-high: #A15C07;
+  --color-warning: #A15C07;
+  --color-warning-soft: #FAF0D8;
+  --color-warning-border: #EFE3C4;
+  --color-moderate: #A15C07;
+  --color-success: #126B34;
+  --color-success-soft: #F1F8F3;
+  --color-success-border: #CFE6D8;
+  --color-safe: #126B34;
+  --color-advisory: #1A3A6B;
+
+  --nx-danger: #B42318;
+  --nx-danger-hover: #9A1C13;
+
+  /* ---------- Typography ---------- */
+  --font-headings: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+
+  /* Type scale ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â controlled, never shouty */
+  --text-display: 2.5rem;
+  --text-title: 1.75rem;
+  --text-section: 1.25rem;
+  --text-body: 0.9375rem;
+  --text-meta: 0.8125rem;
+  --text-micro: 0.6875rem;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---------- Radius: small & confident, not pill-happy ---------- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-button: 8px;
+  --radius-input: 8px;
+  --radius-card: 12px;
+  --radius-modal: 14px;
+  --radius-pill: 9999px;
+
+  /* ---------- Elevation: shallow, realistic ---------- */
+  --shadow-subtle: 0 1px 2px rgba(20, 21, 26, 0.04);
+  --shadow-card: 0 1px 2px rgba(20, 21, 26, 0.04);
+  --shadow-raised: 0 1px 2px rgba(20, 21, 26, 0.05), 0 2px 6px -2px rgba(20, 21, 26, 0.06);
+  --shadow-elevated: 0 4px 12px -2px rgba(20, 21, 26, 0.08), 0 2px 4px -2px rgba(20, 21, 26, 0.04);
+  --shadow-modal: 0 24px 48px -12px rgba(20, 21, 26, 0.18), 0 8px 16px -8px rgba(20, 21, 26, 0.08);
+  --shadow-focus: 0 0 0 3px rgba(26, 58, 107, 0.13);
+
+  /* ---------- Motion ---------- */
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --active-scale: scale(0.985);
+  --hover-lift: translateY(-1px);
+
+  --ink-rgb: 20, 21, 26;
+  --paper-line: rgba(20, 21, 26, 0.06);
+}
+
+
+/* ============================================================================
+   COMPONENT RAMPS
+   Values the components use that predate the token file. Declared here so the
+   ramps are the source of truth rather than the class strings. Each ramp runs
+   soft fill -> line -> text, and every step clears 4.5:1 as text on its own
+   soft fill.
+
+   WHY THIS BLOCK IS WRAPPED IN A SELECTOR
+   These declarations used to sit at the top level, between the closing `}` of
+   the light `:root` rule and the `[data-theme="dark"]` selector. Bare
+   `--name: value` pairs are not valid CSS at the top level, so the parser
+   treated the whole run as part of the PRECEDING rule and carried on past the
+   `[data-theme="dark"]` opening. The result was that the entire dark token
+   block was silently dropped from the production bundle — only the light
+   values shipped, so every `var(--color-bg)` / `var(--color-text-primary)`
+   resolved to its light value in dark mode and the app rendered near-black
+   text on a light canvas.
+
+   Declaring them inside a real rule makes them valid CSS again. The rule is
+   scoped to the LIGHT theme only — deliberately NOT to `[data-theme="dark"]`
+   or `.dark`. These are light-mode component values, and listing the dark
+   selectors here made dark mode inherit light greys; worse, the minifier then
+   merged this rule with the real dark block below, since both matched `.dark`.
+   The dark block that follows re-declares the dark steps on its own.
+   ========================================================================== */
+:root,
+[data-theme="light"] {
+  /* light-mode component ramps */
+
+/* Neutral: the greys between the canvas and the ink */
+  --color-line:            #E4E4E0;   /* default hairline, card and input edges */
+  --color-line-soft:       #E4E4E0;   /* one step lighter, for quiet separators */
+  --color-line-strong:     #D4D4CE;   /* pressed and focused edges */
+  --color-line-hover:      #D4D4CE;
+  --color-wash:            #F1F1EF;   /* hover wash on a neutral surface */
+  --color-line-cool:       #D4D4CE;   /* neutral with the faintest cool cast */
+  --color-line-mist:       #A1A3AC;   /* terminal chrome */
+  --color-ink-faint:       #A1A3AC;   /* disabled ink on light */
+  --color-chrome:          #F1F1EF;   /* neutral chrome wash */
+
+/* Cobalt, continued: the dark steps the accent ramp needs below 500 */
+  --color-cobalt-ink-deep: #12294D;
+  --color-cobalt-fill:     #14151A;   /* accent-tinted fill, dark theme */
+  --color-cobalt-line:     #2E3038;   /* accent border, dark theme */
+  --color-cobalt-bright:   #7E9AC4;   /* accent on a dark surface */
+  --color-cobalt-text:     #9DB8DC;   /* accent text, dark theme */
+  --color-cobalt-hover:    #E3EAF4;   /* accent hover wash, light theme */
+  --color-cobalt-wash:     #E4E4E0;
+
+/* Success: quiet enough to use as a fill, dark enough to use as text */
+  --color-success-ink:     #2A6B4A;   /* success text on a light fill */
+  --color-success-deep:    #2A6B4A;
+  --color-success-press:   #2A6B4A;
+  --color-success-press-2: #234133;   /* success hover */
+  --color-success-line:    #CFE6D8;
+  --color-success-fill:    #E4F3E9;   /* success tint */
+  --color-success-wash:    #F1F8F3;   /* success tint, quieter */
+  --color-success-bright:  #5BBF7A;
+  --color-success-lcd:     #7CC99A;   /* LCD and dark-theme success */
+  --color-success-lcd-dim: #5BBF7A;
+
+/* Warning and severe: the warm browns, amber tints included */
+  --color-severe-ink:      #7A3E0B;   /* severe text on a light fill */
+  --color-severe-deep:     #7A3E0B;
+  --color-severe-press:    #8A4D06;
+  --color-severe-press-2:  #8A4D06;
+  --color-severe-press-3:  #8A4D06;
+  --color-severe-fill:     #EFE3C4;
+  --color-severe-wash:     #FCF1F0;
+  --color-severe-line:     #E8C77A;
+  --color-severe-bright:   #B5824A;
+  --color-warning-lcd:     #B5824A;
+  --color-warning-lcd-2:   #D9A03A;   /* amber, dark theme and LCD */
+  --color-warning-lcd-3:   #E8C77A;
+  --color-warning-lcd-4:   #EFE3C4;
+  --color-warning-line:    #4A3A18;   /* amber line, dark theme */
+
+/* Critical: the reds, and the tints that carry them */
+  --color-critical-press:  #8A1A12;
+  --color-critical-press-2:#8A1A12;
+  --color-critical-ink:    #8A1A12;   /* critical text on a light fill */
+  --color-critical-fill:   #FCF1F0;
+  --color-critical-bright: #F0A79E;
+  --color-critical-deep:   #2A1614;
+
+/* Graphite, continued: the dark-theme surfaces that are not the base two */
+  --color-graphite-deep:   #0D0E12;   /* the deepest surface, wells and scrims */
+  --color-graphite-line:   #2E3038;   /* hairline on a graphite surface */
+  --color-graphite-ink:    #0D0E12;   /* the frame, the handset body */
+} /* end COMPONENT RAMPS */
+
+
+/* =============================================================================
+   Dark theme ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â "Graphite"
+   -----------------------------------------------------------------------------
+   Modelled on the ChatGPT idiom, which works because every layer is separated
+   by LIGHTNESS rather than hue. Pure neutral greys: no navy cast, no warm
+   black, so nothing looks tinted or muddy.
+
+     #0F0F0F  deepest ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â scrims, wells, the map void
+     #171717  sidebar / rail
+     #212121  page canvas
+     #262626  subtle fill, table stripes, inset panels
+     #2F2F2F  card / elevated surface
+     #3D3D3D  hairline border
+     #4D4D4D  emphasised border (inputs, focus)
+
+   Text is a three-step lightness ladder ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â #ECECEC / #B4B4B4 / #8F8F8F ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â so
+   hierarchy reads without needing colour. Shadows are almost removed: on a
+   near-black background a 1px #3D3D3D edge separates layers far better than a
+   drop shadow ever did.
+
+   The brand survives as a light blue (#60A5FA) because a mid-tone cobalt simply
+   disappears against near-black.
+   ========================================================================== */
+[data-theme="dark"],
+.dark {
+  color-scheme: dark;
+
+  /* ---------- Surfaces (the ladder) ---------- */
+  --nx-canvas: #212121;            /* page background */
+  --color-bg: #212121;
+  --color-background: #212121;
+
+  --color-surface: #2F2F2F;        /* cards, panels, sheets */
+  --color-surface-white: #2F2F2F;
+  --color-card: #2F2F2F;
+  --color-card-hover: #333333;
+
+  --color-surface-elevated: #333333;
+  --color-surface-sunken: #171717; /* wells, scrims, the map void */
+  --color-surface-subtle: #262626; /* subtle fills, table stripes */
+
+  /* ---------- Borders ---------- */
+  --nx-line: #3D3D3D;
+  --color-border: #3D3D3D;
+  --color-border-subtle: #2F2F2F;
+  --nx-line-strong: #4D4D4D;       /* inputs, emphasised dividers */
+  --nx-line-soft: #262626;         /* internal separators */
+
+  /* ---------- Text ---------- */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #E0E0E0;
+  --color-text-muted: #D0D0D0;
+  --color-text-faint: #C0C0C0;
+  --color-text-inverse: #212121;
+
+  /* ---------- Brand ---------- */
+  --color-primary: #60A5FA;        /* lifted so it reads on near-black */
+  --color-primary-hover: #93C5FD;
+  --color-primary-active: #BFDBFE;
+  --color-primary-soft: #1F2937;
+  --color-primary-soft-hover: #1F2937;
+  --color-primary-border: #374151;
+  --color-primary-text: #93C5FD;
+  --color-card-selected: #1F2937;
+
+  --color-secondary: #93C5FD;
+  --color-cyan: #93C5FD;
+  --color-info: #60A5FA;
+  --color-brown: #FDE68A;
+  --color-midnight: #1E3A5F;
+  --color-primary-blue: #60A5FA;
+  --color-dark-blue: #1E3A5F;
+  --color-deep-navy: #1E3A5F;
+  --color-midnight-navy: #1E3A5F;
+
+  /* ---------- Severity (lifted one step for dark) ---------- */
+  --color-critical: #F87171;
+  --color-critical-soft: #3F1414;
+  --color-critical-border: #7F1D1D;
+  --color-severe: #FBBF24;
+  --color-severe-soft: #3A2A0A;
+  --color-severe-border: #78350F;
+  --color-high: #FBBF24;
+  --color-warning: #FBBF24;
+  --color-warning-soft: #3A2A0A;
+  --color-warning-border: #78350F;
+  --color-moderate: #FBBF24;
+  --color-success: #34D399;
+  --color-success-soft: #0A2E22;
+  --color-success-border: #14532D;
+  --color-safe: #34D399;
+  --color-advisory: #60A5FA;
+
+  --nx-danger: #F87171;
+  --nx-danger-hover: #FCA5A5;
+
+  /* ---------- Elevation: borders over shadows ---------- */
+  --shadow-subtle: 0 0 0 0 transparent;
+  --shadow-card: 0 0 0 1px rgba(61, 61, 61, 0.55);
+  --shadow-raised: 0 0 0 1px rgba(61, 61, 61, 0.8);
+  --shadow-elevated: 0 8px 24px -8px rgba(0, 0, 0, 0.7);
+  --shadow-modal: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
+  --shadow-focus: 0 0 0 3px rgba(96, 165, 250, 0.35);
+
+  --ink-rgb: 255, 255, 255;
+  --nx-selection: rgba(96, 165, 250, 0.28);   /* lifted blue reads on near-black */
+  --paper-line: rgba(255, 255, 255, 0.08);
+}

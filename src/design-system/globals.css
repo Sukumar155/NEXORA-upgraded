@@ -1,0 +1,666 @@
+/* NOTE: tokens.css and typography.css are imported by index.css, which imports
+   this file. They are deliberately NOT re-imported here.
+
+   A CSS `@import` is a fetch, and a repeated fetch of the same URL is dropped
+   rather than inlined twice. When this file imported them as well, the duplicate
+   was resolved away — and because the dark token block
+   (`[data-theme="dark"]`) is the second half of tokens.css, the *light* `:root`
+   values survived into the bundle while the dark ones did not. Dark mode then
+   fell back to the light canvas and the light text ramp, which is why headings
+   and the top-bar selects rendered black on a dark page. */
+
+/* =============================================================================
+   NEXORA — Global Styles & Component Primitives
+   A small, deliberate set of primitives. Components compose from these rather
+   than inventing one-off shadows, radii, and focus rings.
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: var(--font-body);
+  color: var(--color-text-primary, #14151A);
+  background-color: var(--color-bg, #F8F8F7);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11' on, 'ss01' on;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* Warm off-white canvas. Deliberately not pure white.
+     The dark counterpart is set by the `html.dark, body.dark,
+     [data-theme="dark"]` rule further down, which uses a literal value. */
+  background-color: var(--nx-canvas, #F8F8F7);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Text selection — brand-tinted, low contrast, calm.
+   Theme-aware: a fixed cobalt wash plus a fixed near-black thumb left dark mode
+   with a warm-dark scrollbar that vanished against the #212121 canvas, and a
+   selection colour that ignored the surface it sat on. */
+::selection {
+  background-color: var(--nx-selection, rgba(26, 58, 107, 0.13));
+  color: var(--color-text-primary);
+}
+
+/* ---------- Scrollbar: thin and unobtrusive ---------- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--nx-scrollbar, rgba(20, 21, 26, 0.16));
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nx-scrollbar-hover, rgba(20, 21, 26, 0.3));
+  background-clip: content-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  background-clip: content-box;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.26);
+  background-clip: content-box;
+}
+
+.scrollbar-none { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* =============================================================================
+   SURFACES
+   ========================================================================== */
+
+/* Default product card: hairline border, near-zero shadow. */
+.nexora-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--nx-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.nexora-card:hover {
+  border-color: var(--nx-line-strong);
+  box-shadow: var(--shadow-raised);
+}
+
+/* Interactive card: restrained lift, no glow. */
+.card-interactive {
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  will-change: transform;
+}
+.card-interactive:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-primary-border);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Flat section band — content sits directly on the canvas, separated by rules
+   rather than by floating rectangles. */
+.nx-band {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--nx-line);
+  border-bottom: 1px solid var(--nx-line);
+}
+.nx-well {
+  background-color: var(--color-surface-sunken);
+  border: 1px solid var(--nx-line);
+  border-radius: var(--radius-card);
+}
+
+/* =============================================================================
+   BUTTONS
+   Consistent height (36px standard), radius, and one focus treatment.
+   ========================================================================== */
+
+.nx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast),
+              color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  user-select: none;
+}
+.nx-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+.nx-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.nx-btn:not(:disabled):active { transform: var(--active-scale); }
+
+.nx-btn-sm { height: 30px; padding: 0 10px; font-size: 12px; border-radius: var(--radius-sm); }
+.nx-btn-lg { height: 42px; padding: 0 20px; font-size: 14px; }
+.nx-btn-icon { width: 36px; padding: 0; }
+.nx-btn-sm.nx-btn-icon { width: 30px; }
+
+/* Primary — solid Deep Cobalt. Flat, no glow. */
+.nx-btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-subtle);
+}
+.nx-btn-primary:hover:not(:disabled) { background-color: var(--color-primary-hover); }
+.nx-btn-primary:active:not(:disabled) { background-color: var(--color-primary-active); }
+
+/* Secondary — outlined on white. */
+.nx-btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--nx-line-strong);
+  box-shadow: var(--shadow-subtle);
+}
+.nx-btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+  border-color: rgba(20, 21, 26, 0.28);
+}
+
+/* Ghost — text-only, for tertiary actions. */
+.nx-btn-ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+.nx-btn-ghost:hover:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-primary);
+}
+
+/* Danger — reserved for destructive / emergency-critical actions only. */
+.nx-btn-danger {
+  background-color: var(--nx-danger);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-subtle);
+}
+.nx-btn-danger:hover:not(:disabled) { background-color: var(--nx-danger-hover); }
+
+/* ---- Legacy aliases (kept so existing components inherit the new system) ---- */
+
+.btn-primary-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  box-shadow: var(--shadow-subtle);
+  transition: background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+.btn-primary-gradient:hover:not(:disabled) { background-color: var(--color-primary-hover); }
+.btn-primary-gradient:active:not(:disabled) { transform: var(--active-scale); }
+.btn-primary-gradient:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary-gradient:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+.btn-ghost-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--nx-line-strong);
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-weight: 550;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.btn-ghost-outline:hover:not(:disabled) {
+  background-color: var(--color-surface-sunken);
+  border-color: var(--color-primary-border);
+  color: var(--color-primary-text);
+}
+.btn-ghost-outline:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* Subtle global press feedback. */
+button:not(:disabled):active { transform: var(--active-scale); }
+.hover-lift:hover { transform: var(--hover-lift); }
+
+/* =============================================================================
+   FORM CONTROLS
+   ========================================================================== */
+
+.nx-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 560;
+  letter-spacing: 0.005em;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.nx-input,
+input[type="text"]:not([class*="bg-"]),
+input[type="tel"]:not([class*="bg-"]),
+input[type="email"]:not([class*="bg-"]),
+input[type="number"]:not([class*="bg-"]),
+input[type="password"]:not([class*="bg-"]),
+input[type="search"]:not([class*="bg-"]),
+select:not([class*="bg-"]),
+textarea:not([class*="bg-"]) {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  background-color: var(--color-surface);
+  border: 1px solid var(--nx-line-strong);
+  border-radius: var(--radius-input);
+  padding: 9px 12px;
+  box-shadow: var(--shadow-subtle);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+input::placeholder, textarea::placeholder { color: var(--color-text-faint); }
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+input:disabled, select:disabled, textarea:disabled {
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6D77' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Universal focus ring for anything not covered above. */
+input:focus-visible, button:focus-visible, select:focus-visible,
+textarea:focus-visible, a:focus-visible, [tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+/* =============================================================================
+   STATUS BADGES — flat tint + hairline, no glow
+   ========================================================================== */
+.nx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: var(--radius-xs);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+.nx-badge-neutral { background: var(--color-surface-sunken); color: var(--color-text-secondary); border-color: var(--nx-line); }
+.nx-badge-info    { background: var(--color-primary-soft); color: var(--color-primary-text); border-color: var(--color-primary-border); }
+.nx-badge-success { background: var(--color-success-soft); color: var(--color-success); border-color: var(--color-success-border); }
+.nx-badge-warning { background: var(--color-warning-soft); color: var(--color-warning); border-color: var(--color-warning-border); }
+.nx-badge-danger  { background: var(--color-critical-soft); color: var(--color-critical); border-color: var(--color-critical-border); }
+
+/* =============================================================================
+   TABLES — professional, hairline-ruled
+   ========================================================================== */
+.nx-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.nx-table thead th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 10px 16px;
+  background-color: var(--color-surface-subtle);
+  border-bottom: 1px solid var(--nx-line);
+  white-space: nowrap;
+}
+.nx-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--nx-line-soft);
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+.nx-table tbody tr:last-child td { border-bottom: none; }
+.nx-table tbody tr { transition: background-color var(--transition-fast); }
+.nx-table tbody tr:hover { background-color: var(--color-surface-subtle); }
+.nx-table td:first-child { color: var(--color-text-primary); font-weight: 500; }
+
+/* =============================================================================
+   TYPE GRADIENT — removed.
+   The old teal gradient headline read as "AI-generated". Accent emphasis is now
+   expressed with solid colour, which is what premium brands actually do.
+   Kept as a class so no component breaks, but it is a flat accent now.
+   ========================================================================== */
+.text-gradient {
+  color: var(--color-primary-text);
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+
+/* =============================================================================
+   SEVERITY BEACONS — one calm pulse, reserved for live critical signals
+   ========================================================================== */
+@keyframes beacon-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(180, 35, 24, 0.32); }
+  70%  { box-shadow: 0 0 0 7px rgba(180, 35, 24, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(180, 35, 24, 0); }
+}
+.pulse-beacon { animation: beacon-pulse 2.4s ease-out infinite; }
+
+@keyframes emerald-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.30); }
+  70%  { box-shadow: 0 0 0 7px rgba(21, 128, 61, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(21, 128, 61, 0); }
+}
+.pulse-emerald { animation: emerald-pulse 2.4s ease-out infinite; }
+
+/* =============================================================================
+   BRAND TEXTURE — "Topographic Monsoon"
+   The old background drifted ambient colour blobs, a perspective grid and a
+   sweeping scan line. That constant movement was a large part of the "AI
+   website" read. It is now a single, still, hairline topographic pattern at
+   very low contrast — texture you notice only when you look for it.
+   ========================================================================== */
+.monitoring-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+.monitoring-bg svg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hairline contour field */
+.monitoring-bg .mb-contours,
+.monitoring-bg .mb-contours-teal,
+.monitoring-bg .mb-contours-gray {
+  fill: none;
+  stroke: #1A3A6B;
+  stroke-width: 1;
+}
+.monitoring-bg .mb-contours       { stroke-opacity: 0.045; }
+.monitoring-bg .mb-contours-teal  { stroke-opacity: 0.06; }
+.monitoring-bg .mb-contours-gray  { stroke: #5A5C66; stroke-opacity: 0.04; }
+
+/* Sensor nodes */
+.monitoring-bg .mb-node      { fill: #1A3A6B; fill-opacity: 0.16; }
+.monitoring-bg .mb-node-blue { fill: #2C5C93; fill-opacity: 0.12; }
+.monitoring-bg .mb-node-red  { fill: #B42318; fill-opacity: 0.10; }
+
+/* Data-flow lines */
+.monitoring-bg .mb-flow      { fill: none; stroke: #1A3A6B; stroke-opacity: 0.10; stroke-width: 1; }
+.monitoring-bg .mb-flow-blue { fill: none; stroke: #2C5C93; stroke-opacity: 0.08; stroke-width: 1; }
+.monitoring-bg .mb-wave      { fill: none; stroke: #2C5C93; stroke-opacity: 0.07; stroke-width: 1; }
+
+/* Ripples + flow are opt-in via data-animate; static by default. */
+.monitoring-bg .mb-pulse { display: none; }
+.monitoring-bg[data-animate="true"] .mb-pulse {
+  display: block;
+  fill: none;
+  stroke: #1A3A6B;
+  stroke-width: 1;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mb-pulse 7s ease-out infinite;
+}
+@keyframes mb-pulse {
+  0%   { opacity: 0; transform: scale(0.5); }
+  12%  { opacity: 0.3; }
+  55%, 100% { opacity: 0; transform: scale(1.6); }
+}
+
+/* Dark-mode texture stays neutral graphite, not navy. */
+.dark .monitoring-bg .mb-contours,
+.dark .monitoring-bg .mb-contours-teal { stroke: #9DB8DC; stroke-opacity: 0.035; }
+.dark .monitoring-bg .mb-contours-gray  { stroke: #A1A3AC; stroke-opacity: 0.03; }
+.dark .monitoring-bg .mb-node,
+.dark .monitoring-bg .mb-flow      { stroke: #6E93C4; fill: #6E93C4; stroke-opacity: 0.07; fill-opacity: 0.09; }
+.dark .monitoring-bg .mb-node-blue,
+.dark .monitoring-bg .mb-flow-blue,
+.dark .monitoring-bg .mb-wave { stroke: #7FA5CE; fill: #7FA5CE; stroke-opacity: 0.055; fill-opacity: 0.08; }
+.dark .monitoring-bg .mb-node-red { fill: #E0776C; fill-opacity: 0.07; }
+
+/* =============================================================================
+   UTILITY NORMALISATION
+   Tailwind's stock shadows are heavier than this brand allows, and they were a
+   large part of the previous "floating AI card" look. Remap the whole scale onto
+   the token elevation ramp so every existing shadow utility becomes restrained
+   without touching a single component.
+   ========================================================================== */
+.shadow-xs { box-shadow: var(--shadow-subtle); }
+.shadow-sm { box-shadow: var(--shadow-subtle); }
+.shadow {
+  box-shadow: var(--shadow-card);
+}
+.shadow-md { box-shadow: var(--shadow-raised); }
+.shadow-lg { box-shadow: var(--shadow-elevated); }
+.shadow-xl,
+.shadow-2xl,
+.shadow-[0_1px_2px_rgba(23,32,51,0.06)] {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Colour-tinted shadows read as glow. Strip them back to the neutral ramp. */
+.shadow-\[\#1A3A6B\]\/25,
+.shadow-\[\#1A3A6B\]\/35,
+.shadow-\[\#1A3A6B\]\/20,
+.shadow-\[\#126B34\]\/25 { box-shadow: var(--shadow-elevated); }
+
+/* Cards should be separated by a hairline and a whisper of shadow, never a
+   heavy drop. Feature cards that used `border-2` for emphasis were converted
+   to a single hairline in the components themselves — deliberately NOT done
+   here, because a 2px border is also used for functional map-marker rings. */
+
+/* =============================================================================
+   LAYOUT PRIMITIVES
+   ========================================================================== */
+.aspect-video { aspect-ratio: 16 / 9; }
+.aspect-square { aspect-ratio: 1 / 1; }
+.aspect-map { aspect-ratio: 16 / 10; }
+.object-cover { object-fit: cover; }
+
+/* Consistent page gutter across every view */
+.nx-container {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (max-width: 640px) { .nx-container { padding-inline: 16px; } }
+
+/* Section eyebrow — small, uppercase, muted. Used instead of oversized headings. */
+.nx-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Hairline divider that matches the border system */
+.nx-rule { height: 1px; background-color: var(--nx-line); border: 0; }
+
+/* =============================================================================
+   SKELETON LOADING
+   ========================================================================== */
+.skeleton {
+  background: linear-gradient(90deg, #EFEFEC 25%, #F8F8F7 50%, #EFEFEC 75%);
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+.skeleton * { visibility: hidden; }
+.dark .skeleton {
+  background: linear-gradient(90deg, #262626 25%, #2F2F2F 50%, #262626 75%);
+  background-size: 200% 100%;
+}
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Restrained entrances. The previous treatment used animate-bounce, which reads
+   as a toy rather than as a product: a 40px confirmation mark that springs, and
+   a typing indicator whose dots jump. Both are the same information delivered
+   with less restraint. */
+@keyframes nx-pop {
+  0%   { opacity: 0; transform: scale(0.94); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.nx-pop { animation: nx-pop 240ms cubic-bezier(0.2, 0, 0, 1) both; }
+
+@keyframes nx-typing {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30%           { opacity: 1;   transform: translateY(-2px); }
+}
+.nx-typing { animation: nx-typing 1.1s ease-in-out infinite; }
+
+img { max-width: 100%; height: auto; }
+
+/* =============================================================================
+   ACCESSIBILITY — honour reduced motion globally
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =============================================================================
+   DARK MODE — compact overrides
+   The colour migration preserved relative luminance for every `dark:` variant,
+   so these few rules are enough to seat the whole app on the graphite canvas.
+   ========================================================================== */
+html.dark, body.dark, [data-theme="dark"] {
+  color-scheme: dark;
+  /* Literal values, not var() references.
+   *
+   * This rule used to read `var(--color-bg)` / `var(--color-text-primary)`,
+   * which made dark mode entirely dependent on the `[data-theme="dark"]` token
+   * block in tokens.css surviving the CSS build. In the Vite production build
+   * that block was being dropped — only the light `:root` values shipped — so
+   * the vars resolved to their LIGHT values and dark mode rendered black text
+   * on a light canvas. Spelling the values out here means the canvas and the
+   * default ink are correct even if the token block is lost again, and it keeps
+   * working when the tokens do ship, because the two agree. */
+  background-color: #212121 !important;
+  color: #FFFFFF !important;
+}
+
+/* Light surface utilities that have no `dark:` counterpart get remapped here.
+   Targets follow the neutral graphite ladder (subtle fill / card), so a
+   component that hard-codes a light wash still lands on a dark surface. */
+.dark .bg-\[\#F8F8F7\], .dark .bg-\[\#F1F1EF\], .dark .bg-\[\#F4F4F1\],
+.dark .bg-\[\#EFEFEC\] {
+  background-color: #262626 !important;
+}
+
+.dark .bg-\[\#1A1B20\], .dark .bg-\[\#1C1D22\], .dark .bg-\[\#17181C\],
+.dark .bg-\[\#15161A\] {
+  background-color: #2F2F2F !important;
+}
+
+/* ---------- Accent text in dark mode ----------
+   #5B7BA8 is the light-mode "accent on a tinted surface" value. A number of
+   components use it without a dark: counterpart, which leaves it sitting on a
+   graphite surface at 3.9:1. Lift it to the dark-mode accent token so the
+   accent is legible in both themes. */
+.dark .text-\[\#5B7BA8\] { color: #E0E0E0 !important; }
+.dark .text-\[\#7E9AC4\] { color: #E0E0E0 !important; }
+
+.dark ::-webkit-scrollbar-thumb { background: rgba(241, 241, 239, 0.18); background-clip: content-box; }
+.dark ::-webkit-scrollbar-thumb:hover { background: rgba(241, 241, 239, 0.32); background-clip: content-box; }
+
+/* ---------- Leaflet: light basemap chrome, neutral popups ---------- */
+.leaflet-container {
+  font-family: var(--font-body) !important;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: #EFEFEC;
+}
+.leaflet-popup-content-wrapper {
+  background: #FFFFFF;
+  color: #14151A;
+  border: 1px solid #E4E4E0;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px -2px rgba(20, 21, 26, 0.10), 0 2px 4px -2px rgba(20, 21, 26, 0.05) !important;
+}
+.leaflet-popup-tip { background: #FFFFFF; border: 1px solid #E4E4E0; }
+.leaflet-popup-content { margin: 12px 14px; font-size: 13px; line-height: 1.5; }
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.88) !important;
+  color: #6B6D77 !important;
+  font-size: 10px !important;
+  border-top-left-radius: 6px;
+}
+.leaflet-control-attribution a { color: #5A5C66 !important; }
+.leaflet-bar a {
+  background: #FFFFFF !important;
+  color: #2E3038 !important;
+  border-bottom-color: #E4E4E0 !important;
+}
+.leaflet-bar a:hover { background: #F1F1EF !important; color: #1A3A6B !important; }
+
+/* Leaflet chrome, dark — the neutral graphite ladder, white/off-white text.
+   These were still on the old warm-black palette, so popups and the zoom bar
+   stayed near-#1C1D22 while the rest of the app moved to #2F2F2F/#3D3D3D. */
+.dark .leaflet-container { background-color: #171717 !important; }
+.dark .leaflet-popup-content-wrapper { background: #2F2F2F !important; color: #FFFFFF !important; border-color: #3D3D3D !important; }
+.dark .leaflet-popup-tip { background: #2F2F2F !important; border-color: #3D3D3D !important; }
+.dark .leaflet-control-attribution { background: rgba(47, 47, 47, 0.88) !important; color: #C0C0C0 !important; }
+.dark .leaflet-control-attribution a { color: #E0E0E0 !important; }
+.dark .leaflet-bar a { background: #2F2F2F !important; color: #FFFFFF !important; border-bottom-color: #3D3D3D !important; }
+.dark .leaflet-bar a:hover { background: #3D3D3D !important; }

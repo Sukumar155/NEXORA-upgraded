@@ -1,0 +1,78 @@
+/* =============================================================================
+   NEXORA — Typography
+   Inter across the product, JetBrains Mono for telemetry/data.
+   Hierarchy is built on weight + size + colour, not on oversized type.
+   ========================================================================== */
+
+.font-heading {
+  font-family: var(--font-headings);
+  letter-spacing: -0.018em;
+  font-feature-settings: 'cv11' on, 'ss01' on;
+}
+
+.font-body {
+  font-family: var(--font-body);
+  letter-spacing: -0.003em;
+}
+
+/* Telemetry, IDs, coordinates, counters — tabular figures so numbers don't jitter */
+.font-data {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' on, 'zero' on;
+  letter-spacing: -0.01em;
+}
+
+.font-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ---------- Display / title: present, not shouty ---------- */
+h1, .h1 {
+  font-family: var(--font-headings);
+  font-weight: 640;
+  font-size: 1.875rem;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+}
+
+h2, .h2 {
+  font-family: var(--font-headings);
+  font-weight: 620;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+h3, .h3 {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  letter-spacing: -0.014em;
+  color: var(--color-text-primary);
+}
+
+h4, .h4 {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+/* Body copy gets a comfortable measure and relaxed leading. */
+p {
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* Tabular numerics wherever a metric is displayed. */
+.font-numeric { font-variant-numeric: tabular-nums; }

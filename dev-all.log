@@ -1,0 +1,48 @@
+
+> disaster-management@0.0.0 dev:all
+> node scripts/dev-all.mjs
+
+[dev-all] NEXORA dev environment starting...
+[dev-all]   Backend : http://localhost:3001  (SOS bridge)
+[dev-all]   App     : http://localhost:5173  (Vite)
+(node:9708) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[db] DATABASE_URL not set - using JSON files in server/data/
+[sos-server] Database: json-fallback
+[sos-server] NEXORA SOS Bridge listening on http://localhost:3001
+[sos-server] Stored reports: 172
+[sos-server] SMS OTP provider: console — DEV MODE: no SMS gateway configured, OTPs print to this terminal
+
+  [32m[1mVITE[22m v8.3.0[39m  [2mready in [0m[1m1034[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[directory] +91 9812345678 requested elevated role "DDMO_OFFICER" but is not on the roster — downgraded to CITIZEN.
+
+[sos-server] ┌──────────────────────────────────────────┐
+[sos-server] │  NEXORA OTP for +91 9812345678: 822503     
+[sos-server] └──────────────────────────────────────────┘
+
+[sos-server] OTP issued for +91 9812345678 via console (dev mode — no SMS gateway configured)
+[sos-server] incident INC-MUK1CYG4-282 filed by CITIZEN 9812345678
+[directory] +91 9000000002 asked for role "CITIZEN" but the roster grants "DDMO_OFFICER" — honouring the roster.
+
+[sos-server] ┌──────────────────────────────────────────┐
+[sos-server] │  NEXORA OTP for +91 9000000002: 244239     
+[sos-server] └──────────────────────────────────────────┘
+
+[sos-server] OTP issued for +91 9000000002 via console (dev mode — no SMS gateway configured)
+[sos-server] CAP bulletin ALERT-MUK1CYHP-226 broadcast by DDMO_OFFICER 9000000002
+[sos-server] + SOS-SRV-MUK1CYJ1-156 @ Smoke Test Marina (13.0827, 80.2707) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ4Z-857 @ flood 0 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ58-161 @ flood 1 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ5V-205 @ flood 2 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ64-317 @ flood 3 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ6Q-574 @ flood 4 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ76-393 @ flood 5 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ7L-703 @ flood 6 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ81-284 @ flood 7 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ8B-353 @ flood 8 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ8J-333 @ flood 9 (13.0800, 80.2700) [UNVERIFIED]
+[sos-server] + SOS-SRV-MUK1CZ8X-712 @ flood 10 (13.0800, 80.2700) [UNVERIFIED]
